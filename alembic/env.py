@@ -66,7 +66,7 @@ def run_migrations_online():
     conf = config.get_section(config.config_ini_section)
     url = os.environ.get('SQLALCHEMY_URL')
     if url:
-        conf['sqlalchemu.url'] = url
+        conf['sqlalchemy.url'] = url
 
     connectable = engine_from_config(
         conf,
