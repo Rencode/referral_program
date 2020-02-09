@@ -5,8 +5,11 @@ from setuptools import setup, find_packages
 requires = [
     'pyramid',
     'waitress',
-    'requests',
-    'pyramid-chameleon'
+    'pyramid-chameleon',
+    'psycopg2',
+    'alembic',
+    'zope.sqlalchemy',
+    'pyramid-tm'
     ]
 
 dev_requires = [
