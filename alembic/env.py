@@ -63,8 +63,13 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
+    conf = config.get_section(config.config_ini_section)
+    url = os.environ.get('SQLALCHEMY_URL')
+    if url:
+        conf['sqlalchemu.url'] = url
+
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
+        conf,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
@@ -76,6 +81,7 @@ def run_migrations_online():
 
         with context.begin_transaction():
             context.run_migrations()
+
 
 if context.is_offline_mode():
     run_migrations_offline()
