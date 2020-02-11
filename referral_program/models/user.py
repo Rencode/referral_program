@@ -13,16 +13,16 @@ class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     email = Column(String)
-    referral = Column(UUID(as_uuid=True))
-    # name = Column(String)
-    # surname = Column(String)
+    referral = Column(UUID(as_uuid=True), ForeignKey('referral.id'), nullable=True)
+    balance = Column(Integer, default=0)
+    total_referrals = Column(Integer, default=0)
 
 
 class Referral(Base):
     __tablename__ = 'referral'
     id = Column(UUID(as_uuid=True), primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
-    num_referrals = Column(Integer)
+    num_referrals = Column(Integer, default=0)
 
 
 Index('email_index', User.email, unique=True, mysql_length=255)
