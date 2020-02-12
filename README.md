@@ -67,34 +67,6 @@ Retrieve the information for an existing user.
 }
 ```
 
-### Get User
-Retrieve the information for an existing user.
-
-**URL** : `/user/{user_id}`
-
-**Method** : `GET`
-
-**Parameters**
-* user_id - The user id
-
-## Success Response
-
-**Code** : `200 OK`
-
-**Example**
-
-``GET /user/12``
-
-```json
-{
-    "id": "49",
-    "email": "somerandom@email.com",
-    "referral": "9a299020-6ddb-4bf4-8fdd-4989337d8e82",
-    "balance": "10.0",
-    "total_referrals": "0"
-}
-```
-
 ### Create Referral
 Create a referral for the given user
 
