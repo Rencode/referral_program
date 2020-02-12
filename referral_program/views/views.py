@@ -29,6 +29,7 @@ class ReferralView(object):
     REWARD_PER_REFERRAL = 1000
     EMAIL_REGEX = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
     NUM_REFERRALS_PER_REWARD = 5
+    MINOR_CURRENCY_CONVERSION_RATE = 100
 
     @view_config(route_name='create_user', request_method='POST', renderer='json')
     def create_user(self):
@@ -79,13 +80,36 @@ class ReferralView(object):
             return exception_response(500)
         return {'id': new_user.id}
 
-    @view_config(route_name='create_referral', request_method='POST',renderer='json')
+    @view_config(route_name='get_user', request_method='GET', renderer='json')
+    def get_user(self):
+        """Retrieve the user info
+
+        Gets the user info for the provided id, request params:
+            * user_id:
+                the user id of the requested user
+        """
+        user_id = self.request.matchdict['user_id']
+        try:
+            db = self.request.dbsession
+            user = db.query(User).filter_by(id=user_id).first()
+        except DBAPIError:
+            return exception_response(400, explanation='Unknown user')
+        return {
+            'id': str(user.id),
+            'email': user.email,
+            'referral': str(user.referral),
+            'balance': str(user.balance / self.MINOR_CURRENCY_CONVERSION_RATE),
+            'total_referrals': str(user.total_referrals)
+        }
+
+
+    @view_config(route_name='create_referral', request_method='POST', renderer='json')
     def create_referral(self):
         """Create new referral
 
         This view creates a new referral token and takes the following request params:
         * user_id:
-            the used id of the user creating the referral token
+            the user id of the user creating the referral token
         """
         try:
             user_id = self.request.matchdict['user_id']
