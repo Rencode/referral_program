@@ -184,3 +184,47 @@ class UserViewTests(unittest.TestCase):
         view_being_tested = ReferralView(request)
         response = view_being_tested.create_user()
         self.assertEqual(response.status_code, 400)
+
+    def test_get_valid_user(self):
+        # Setup our dummy request before using it
+        request = testing.DummyRequest()
+        request.matchdict['user_id'] = '12'
+        request.dbsession = mock(sqlalchemy.orm.session.Session)
+        mock_user = mock(User)
+        mock_user.id = 12
+        mock_user.email = 'bonzo@test.com'
+        mock_user.referral = None
+        mock_user.balance = 0
+        mock_user.total_referrals = 0
+
+        mock_query = query.Query([])
+        when(request.dbsession).query(User).thenReturn(mock_query)
+        when(mock_query).filter_by(id=ANY).thenReturn(mock_query)
+        when(mock_query).first().thenReturn(mock_user)
+
+        view_being_tested = ReferralView(request)
+        response = view_being_tested.get_user()
+        self.assertEqual(response,
+            {
+                'id': '12',
+                'email': 'bonzo@test.com',
+                'referral': 'None',
+                'balance': '0.0',
+                'total_referrals':'0'
+            }
+        )
+
+    def test_get_invalid_user(self):
+        # Setup our dummy request before using it
+        request = testing.DummyRequest()
+        request.matchdict['user_id'] = '12'
+        request.dbsession = mock(sqlalchemy.orm.session.Session)
+
+        mock_query = query.Query([])
+        when(request.dbsession).query(User).thenReturn(mock_query)
+        when(mock_query).filter_by(id=ANY).thenReturn(mock_query)
+        when(mock_query).first().thenRaise(DBAPIError(statement='', params=[], orig=''))
+
+        view_being_tested = ReferralView(request)
+        response = view_being_tested.get_user()
+        self.assertEqual(response.status_code, 400)
