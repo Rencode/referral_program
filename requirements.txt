@@ -13,7 +13,7 @@ PasteDeploy==2.1.0
 plaster==1.0
 plaster-pastedeploy==0.7
 pluggy==0.13.1
-psycopg2==2.8.4
+psycopg2-binary
 py==1.8.1
 Pygments==2.5.2
 pyparsing==2.4.6
