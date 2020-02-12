@@ -25,11 +25,11 @@ Create a new user.
 * email - The new user's email address
 * referral(**optional**) - A referral provided by an existing user
 
-## Success Response
+#### Success Response
 
 **Code** : `200 OK`
 
-**Example**
+#### Example
 
 ``POST /user?email=barbie@gmail.com&referral=9a299020-6ddb-4bf4-8fdd-4989337d8e82``
 
@@ -49,11 +49,11 @@ Retrieve the information for an existing user.
 **Parameters**
 * user_id - The user id
 
-## Success Response
+#### Success Response
 
 **Code** : `200 OK`
 
-**Example**
+#### Example
 
 ``GET /user/12``
 
@@ -77,11 +77,11 @@ Create a referral for the given user
 **Parameters**
 * user_id - The user id
 
-## Success Response
+#### Success Response
 
 **Code** : `200 OK`
 
-**Example**
+#### Example
 
 ``POST /user/12/referral``
 
