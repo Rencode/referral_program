@@ -115,7 +115,29 @@ Run the unit tests
 ```
 pytest tests
 ```
+Run the database migrations
+```
+alembi upgrage head
+```
 Finally we can run the web server
 ```
 pserve development.ini --reload
+```
+
+## Deploying to Heroku
+You need to create a config var for your app in heroku called ``SQLALCHEMY_URL`` and this should be set to 
+connection string for your postgres instance. In hindsight I should have made use of the default variable provided
+in Heroku (``DATABASE_URL``). I may change that at a later date.
+
+Initialize the Heroku stack
+````
+heroku create --stack cedar
+````
+Push the code to heroku
+```
+git push heroku master
+```
+Scale the workers
+```
+heroku scale web=1
 ```
