@@ -67,8 +67,12 @@ class ReferralView(object):
 
                 referring_user = db.query(User).filter_by(id=referral_obj.user_id).first()
                 referring_user.total_referrals += 1
+                if referring_user.referral :
+                    referral_bonus = self.SIGNUP_REWARD
+                else:
+                    referral_bonus = 0
                 referring_user.balance = \
-                    referring_user.total_referrals // self.NUM_REFERRALS_PER_REWARD * self.REWARD_PER_REFERRAL
+                    referring_user.total_referrals // self.NUM_REFERRALS_PER_REWARD * self.REWARD_PER_REFERRAL + referral_bonus
 
             db.flush()
             db.refresh(new_user)
