@@ -17,7 +17,7 @@ PasteDeploy==2.1.0
 plaster==1.0
 plaster-pastedeploy==0.7
 pluggy==0.13.1
-psycopg2==2.8.4
+psycopg2-binary
 py==1.8.1
 Pygments==2.5.2
 pyparsing==2.4.6
@@ -29,7 +29,6 @@ pyramid-tm==2.4
 pytest==5.3.5
 python-dateutil==2.8.1
 python-editor==1.0.4
--e git+https://github.com/Rencode/referral_program.git@77222110fcc3eddc367aa1307794d816631196b0#egg=referral_program
 repoze.lru==0.7
 requests==2.22.0
 six==1.14.0
