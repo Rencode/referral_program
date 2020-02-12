@@ -15,7 +15,8 @@ requires = [
 dev_requires = [
     'pyramid_debugtoolbar',
     'pytest',
-    'mockito'
+    'mockito',
+    'sqlalchemy'
 ]
 
 setup(name='referral_program',
